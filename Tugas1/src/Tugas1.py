@@ -1,3 +1,4 @@
+import pandas as pd
 import json
 import urllib.request
 from bs4 import BeautifulSoup as soup 
@@ -6,13 +7,14 @@ def writeToJSONFile(path, fileName, data):
     filePathNameWExt = path + '/' + fileName + '.json'
     with open(filePathNameWExt, 'w') as fp:
         json.dump(data, fp)
+    df = pd.io.json.json_normalize(data)
 
 def addDentist(data, ID, dentist):
     for i in data:
         if i == ID:
             return
     data[ID] = dentist
-        
+
 if __name__ == '__main__':
 
     headers = {'user-agent' : 'Mozilla/5.0 (X11; Linux x86_64); Basis Data/Admin Basis Data/basisdata@std.stei.itb.ac.id'}
