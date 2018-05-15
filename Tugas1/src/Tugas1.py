@@ -4,10 +4,16 @@ import urllib.request
 from bs4 import BeautifulSoup as soup 
 
 def writeToJSONFile(path, fileName, data):
+    df = pd.io.json.json_normalize(data)
+    out = df.to_json(orient='records')
     filePathNameWExt = path + '/' + fileName + '.json'
+    #dirpath = 'D:/MyCodes/Python/DataScraping/Seleksi-2018/Tugas1/data/'+filePathNameWExt
     with open(filePathNameWExt, 'w') as fp:
         json.dump(data, fp)
-    df = pd.io.json.json_normalize(data)
+
+    with open(filePathNameWExt, 'w') as f:
+        f.write(out)
+    
 
 def addDentist(data, ID, dentist):
     for i in data:
@@ -20,7 +26,7 @@ if __name__ == '__main__':
     headers = {'user-agent' : 'Mozilla/5.0 (X11; Linux x86_64); Basis Data/Admin Basis Data/basisdata@std.stei.itb.ac.id'}
 
     page = 1
-    id = 0
+    ID = 0
     data = dict()
     dentist = dict()
 
@@ -35,7 +41,7 @@ if __name__ == '__main__':
         doclist = page_soup.findAll("div", {"class": "row row-doctor"})
         
         for doc in doclist:
-            id += 1
+            ID += 1
             doctor_name = doc.findAll("div", {"class": "doctor-name"})
             doctor_spec = doc.findAll("div", {"class": "doctor-speciality"})
             findHospital = doc.findAll("div", {"class": "px16 doctor-address"})
@@ -52,10 +58,10 @@ if __name__ == '__main__':
             dentist['Tempat praktik'] = hospital
             dentist['Lokasi'] = location
             dentist['Tarif'] = tarif
-            addDentist(data, str(id), dentist)
+            addDentist(data, str(ID), dentist)
 
             print("=============================")
-            print("ID :" + str(id))
+            print("ID :" + str(ID))
             print("Nama Dokter : " + name)
             print("Spesialis : " + speciality)
             print("Tempat praktik : " + hospital)
