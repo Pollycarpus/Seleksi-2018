@@ -27,7 +27,7 @@ if __name__ == '__main__':
     doclist = page_soup.findAll("div", {"class": "row row-doctor"})
     id = 0
     data = dict()
-    dentist = []
+    dentist = dict()
 
     for doc in doclist:
         id += 1
@@ -42,7 +42,11 @@ if __name__ == '__main__':
         location = findLocation[0].text.strip()
         tarif = findTarif[0].text.strip()
 
-        dentist = [name, speciality, hospital, location, tarif]
+        dentist['Nama Dokter'] = name
+        dentist['Spesialis'] = speciality
+        dentist['Tempat praktik'] = hospital
+        dentist['Lokasi'] = location
+        dentist['Tarif'] = tarif
         addDentist(data, str(id), dentist)
 
         print("=============================")
