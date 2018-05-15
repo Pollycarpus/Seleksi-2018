@@ -28,6 +28,7 @@ if __name__ == '__main__':
     page = 1
     ID = 0
     data = dict()
+    #dentist = []
     dentist = dict()
 
     while page <= 9: 
@@ -53,11 +54,19 @@ if __name__ == '__main__':
             location = findLocation[0].text.strip()
             tarif = findTarif[0].text.strip()
 
-            dentist['Nama Dokter'] = name
+            '''dentist['Nama Dokter'] = name
             dentist['Spesialis'] = speciality
             dentist['Tempat praktik'] = hospital
             dentist['Lokasi'] = location
             dentist['Tarif'] = tarif
+            '''
+            #dentist = [name, speciality, hospital, location, tarif]
+            dentist = { "Nama Dokter" : name, 
+                        "Spesialis" : speciality, 
+                        "Tempat Praktik" : hospital, 
+                        "Lokasi" : location,
+                        "Tarif" : tarif
+                    }
             addDentist(data, str(ID), dentist)
 
             print("=============================")
@@ -68,5 +77,4 @@ if __name__ == '__main__':
             print("Lokasi : " + location)
             print("Tarif : " + tarif)
         page += 1
-
     writeToJSONFile('D:/MyCodes/Python/DataScraping/Seleksi-2018/Tugas1/data', 'JSONData', data)
