@@ -7,7 +7,7 @@ def writeToJSONFile(path, fileName, data):
     df = pd.io.json.json_normalize(data)
     out = df.to_json(orient='records')
     filePathNameWExt = path + '/' + fileName + '.json'
-    #dirpath = 'D:/MyCodes/Python/DataScraping/Seleksi-2018/Tugas1/data/'+filePathNameWExt
+
     with open(filePathNameWExt, 'w') as fp:
         json.dump(data, fp)
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     page = 1
     ID = 0
     data = dict()
-    #dentist = []
+    
     dentist = dict()
 
     while page <= 9: 
@@ -57,13 +57,6 @@ if __name__ == '__main__':
             location = findLocation[0].text.strip()
             tarif = findTarif[0].text.strip()
 
-            '''dentist['Nama Dokter'] = name
-            dentist['Spesialis'] = speciality
-            dentist['Tempat praktik'] = hospital
-            dentist['Lokasi'] = location
-            dentist['Tarif'] = tarif
-            '''
-            #dentist = [name, speciality, hospital, location, tarif]
             dentist = { 
                         "Nama Dokter" : name, 
                         "Spesialis" : speciality, 
