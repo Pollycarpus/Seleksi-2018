@@ -3,10 +3,15 @@ import urllib.request
 from bs4 import BeautifulSoup as soup 
 
 def writeToJSONFile(path, fileName, data):
-    filePathNameWExt = './' + path + '/' + fileName + '.json'
+    filePathNameWExt = path + '/' + fileName + '.json'
     with open(filePathNameWExt, 'w') as fp:
         json.dump(data, fp)
 
+def addDentist(data, ID, dentist):
+    for i in data:
+        if i == ID:
+            return
+    data[ID] = dentist
 
 if __name__ == '__main__':
 
@@ -21,7 +26,8 @@ if __name__ == '__main__':
 
     doclist = page_soup.findAll("div", {"class": "row row-doctor"})
     id = 0
-    data = {}
+    data = dict()
+    dentist = []
 
     for doc in doclist:
         id += 1
@@ -36,6 +42,9 @@ if __name__ == '__main__':
         location = findLocation[0].text.strip()
         tarif = findTarif[0].text.strip()
 
+        dentist = [name, speciality, hospital, location, tarif]
+        addDentist(data, str(id), dentist)
+
         print("=============================")
         print("ID :" + str(id))
         print("Nama Dokter : " + name)
@@ -43,3 +52,5 @@ if __name__ == '__main__':
         print("Tempat praktik : " + hospital)
         print("Lokasi : " + location)
         print("Tarif : " + tarif)
+
+        writeToJSONFile('D:/MyCodes/Python/DataScraping/Seleksi-2018/Tugas1/data', 'JSONData', data)
