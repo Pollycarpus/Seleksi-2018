@@ -20,7 +20,7 @@ $ pip install pandas
 ### How to Use
 1. Execute Makefile with command bellow. 
 '''
-$ make
+$ mingw32-make
 '''
 
 ### JSON Structure (Normalized)

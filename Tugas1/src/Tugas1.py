@@ -13,6 +13,9 @@ def writeToJSONFile(path, fileName, data):
 
     with open(filePathNameWExt, 'w') as f:
         f.write(out)
+
+    with open('D:/MyCodes/Python/DataScraping/Seleksi-2018/Tugas1/data/notnormal.json', 'w') as p:
+        json.dump(data, p)
     
 
 def addDentist(data, ID, dentist):
@@ -61,7 +64,8 @@ if __name__ == '__main__':
             dentist['Tarif'] = tarif
             '''
             #dentist = [name, speciality, hospital, location, tarif]
-            dentist = { "Nama Dokter" : name, 
+            dentist = { 
+                        "Nama Dokter" : name, 
                         "Spesialis" : speciality, 
                         "Tempat Praktik" : hospital, 
                         "Lokasi" : location,
